@@ -7,7 +7,7 @@ import json
 import io
 from datetime import datetime
 
-from agent.core import BioInfoAgent
+from agent.core import BioInfoAgent, PROVIDERS
 from agent.planner import PipelinePlanner
 from tools.sequence import SequenceAnalyzer
 from tools.rnaseq import RNASeqAnalyzer
@@ -105,44 +105,44 @@ def render_sidebar():
 
         # Provider preset
         lang = st.session_state.lang
-        provider_options = [
-            t("provider_official", lang),
-            t("provider_mimo", lang),
-            t("provider_custom", lang),
-        ]
-        provider = st.selectbox(t("provider_presets", lang), provider_options)
+        provider_keys = ["anthropic", "openai", "gemini", "xai", "deepseek", "mimo", "custom"]
+        provider_labels = [t(f"provider_{k}", lang) for k in provider_keys]
+        provider_idx = st.selectbox(
+            t("provider_presets", lang),
+            range(len(provider_keys)),
+            format_func=lambda i: provider_labels[i],
+        )
+        selected_provider = provider_keys[provider_idx]
+        prov_config = PROVIDERS[selected_provider]
 
-        MIMO_BASE_URL = "https://token-plan-cn.xiaomimimo.com/anthropic"
-        MIMO_MODELS = ["mimo-v2.5-pro", "MiMo-7B"]
+        # Show provider info
+        if prov_config.get("base_url"):
+            st.caption(f"Base URL: `{prov_config['base_url']}`")
 
-        if provider == t("provider_official", lang):
-            base_url = None
+        # Model selection
+        if prov_config["models"]:
+            model = st.selectbox(t("model_label", lang), prov_config["models"])
+        else:
             model = st.text_input(
                 t("model_label", lang),
-                value="claude-sonnet-4-20250514",
+                value="",
                 help=t("model_help", lang),
             )
-        elif provider == t("provider_mimo", lang):
-            base_url = MIMO_BASE_URL
-            model = st.selectbox(t("model_label", lang), MIMO_MODELS)
-            st.caption(f"Base URL: `{MIMO_BASE_URL}`")
-        else:
+
+        # Custom base URL for "custom" provider
+        base_url = prov_config.get("base_url")
+        if selected_provider == "custom":
             base_url = st.text_input(
                 t("api_base_url_label", lang),
                 help=t("api_base_url_help", lang),
             )
-            model = st.text_input(
-                t("model_label", lang),
-                value="claude-sonnet-4-20250514",
-                help=t("model_help", lang),
-            )
 
         if api_key:
-            # Always recreate agent to pick up latest settings
             st.session_state.agent = BioInfoAgent(
                 api_key=api_key,
                 model=model,
                 base_url=base_url if base_url else None,
+                provider=selected_provider,
             )
         else:
             st.session_state.agent = None

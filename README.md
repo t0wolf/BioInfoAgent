@@ -125,13 +125,15 @@ To enable the AI chat agent and intelligent result interpretation:
 
 ### Supported Providers
 
-| Provider | Setup |
-|----------|-------|
-| **Anthropic Official** | Select "Anthropic Official" preset, enter your API key |
-| **Xiaomi MiMo** | Select "Xiaomi MiMo" preset, enter your MiMo API key |
-| **Custom** | Select "Custom" preset, enter the base URL and model name |
-
-The app is compatible with any API endpoint that follows the [Anthropic Messages API](https://docs.anthropic.com/en/api/messages) protocol.
+| Provider | Models | Protocol |
+|----------|--------|----------|
+| **Anthropic** | Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 4.6 | Anthropic Messages API |
+| **OpenAI** | GPT-5.5 High, GPT-5.4 High, GPT-4o | OpenAI Chat Completions |
+| **Google Gemini** | Gemini 3.1 Pro, Gemini 3 Pro, Gemini 3 Flash | OpenAI-compatible |
+| **xAI Grok** | Grok 4.20, Grok 4.1, Grok 3 | OpenAI-compatible |
+| **DeepSeek** | DeepSeek V4 Pro, DeepSeek R1, DeepSeek Chat | OpenAI-compatible |
+| **Xiaomi MiMo** | MiMo v2.5 Pro, MiMo-7B | OpenAI-compatible |
+| **Custom** | Any model | OpenAI-compatible |
 
 Without an API key, all analysis tools still work — only the AI chat and interpretation features are limited.
 

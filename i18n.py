@@ -60,9 +60,29 @@ TRANSLATIONS = {
         "zh": "接口预设",
         "en": "Provider Preset",
     },
-    "provider_official": {
-        "zh": "Anthropic 官方",
-        "en": "Anthropic Official",
+    "provider_presets": {
+        "zh": "接口预设",
+        "en": "Provider Preset",
+    },
+    "provider_anthropic": {
+        "zh": "Anthropic Claude",
+        "en": "Anthropic Claude",
+    },
+    "provider_openai": {
+        "zh": "OpenAI GPT",
+        "en": "OpenAI GPT",
+    },
+    "provider_gemini": {
+        "zh": "Google Gemini",
+        "en": "Google Gemini",
+    },
+    "provider_xai": {
+        "zh": "xAI Grok",
+        "en": "xAI Grok",
+    },
+    "provider_deepseek": {
+        "zh": "DeepSeek",
+        "en": "DeepSeek",
     },
     "provider_mimo": {
         "zh": "小米 MiMo",
@@ -72,9 +92,9 @@ TRANSLATIONS = {
         "zh": "自定义",
         "en": "Custom",
     },
-    "provider_presets": {
-        "zh": "接口预设",
-        "en": "Provider Preset",
+    "provider_official": {
+        "zh": "Anthropic Claude",
+        "en": "Anthropic Claude",
     },
 
     # ── Navigation ──
